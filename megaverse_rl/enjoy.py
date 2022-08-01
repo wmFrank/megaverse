@@ -1,15 +1,14 @@
 import sys
 
-from sample_factory.algorithms.appo.enjoy_appo import enjoy
-from sample_factory.algorithms.utils.arguments import parse_args
-
-from megaverse_rl.megaverse_utils import register_env
+from sample_factory.enjoy import enjoy
+from megaverse_rl.train import parse_megaverse_args, register_megaverse_components
 
 
 def main():
     """Script entry point."""
-    register_env()
-    cfg = parse_args(evaluation=True)
+    register_megaverse_components()
+    cfg = parse_megaverse_args(evaluation=True)
+
     status = enjoy(cfg)
     return status
 

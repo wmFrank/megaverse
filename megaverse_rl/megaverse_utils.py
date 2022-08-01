@@ -1,5 +1,4 @@
 import gym
-from sample_factory.envs.env_registry import global_env_registry
 
 from megaverse.megaverse_env import MegaverseEnv, make_env_multitask
 
@@ -96,6 +95,16 @@ def make_megaverse(env_name, cfg=None, env_config=None, **kwargs):
     return env
 
 
+class MegaverseSpec:
+    def __init__(self, name):
+        self.name = name
+
+
+MEGAVERSE_ENVS = [
+    MegaverseSpec("megaverse_TowerBuilding"),
+]
+
+
 def megaverse_override_defaults(env, parser):
     """RL params specific to Megaverse envs."""
     parser.set_defaults(
@@ -120,12 +129,3 @@ def add_megaverse_args(env, parser):
     # Team Spirit options
     p.add_argument('--megaverse_increase_team_spirit', default=False, type=str2bool, help='Increase team spirit from 0 to 1 over max_team_spirit_steps during training. At 1, the reward will be completely selfless.')
     p.add_argument('--megaverse_max_team_spirit_steps', default=1e9, type=float, help='Number of training steps when team spirit will hit 1.')
-
-
-def register_env():
-    global_env_registry().register_env(
-        env_name_prefix='megaverse_',
-        make_env_func=make_megaverse,
-        add_extra_params_func=add_megaverse_args,
-        override_default_params_func=megaverse_override_defaults,
-    )
