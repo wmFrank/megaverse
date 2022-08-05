@@ -114,6 +114,7 @@ def megaverse_override_defaults(env, parser):
         obs_subtract_mean=0.0,
         obs_scale=255.0,
         actor_worker_gpus=[0],
+        env_gpu_observations=False,
         exploration_loss='symmetric_kl',
         exploration_loss_coeff=0.001,
     )
